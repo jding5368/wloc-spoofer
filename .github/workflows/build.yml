@@ -1,15 +1,19 @@
 name: Build IPA
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
       - run: |
-          if [ -f src.zip ]; then unzip -q src.zip
-          else base64 -d src.b64 > src.zip && unzip -q src.zip
+          if [ -f src.zip ]; then
+            unzip -q src.zip
+          else
+            base64 -d src.b64 > src.zip
+            unzip -q src.zip
           fi
       - run: brew install xcodegen
       - run: |
